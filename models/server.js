@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import router from '../routes/user.js'
+import { dbConnection } from '../db/config.js'
 
 export default class Server { 
 
@@ -9,10 +10,16 @@ export default class Server {
     this.port = process.env.PORT
     this.usuariosPath = '/api/users'
 
+    //conectar DB
+    this.connectDB();
     // middleware
-    this.middlewares()
+    this.middlewares();
     //rutas
-    this.routes()
+    this.routes();
+  }
+
+  async connectDB() { 
+    await dbConnection()
   }
 
   middlewares(){
@@ -25,7 +32,6 @@ export default class Server {
   }
 
   routes() { 
-    
     this.app.use(this.usuariosPath, router )
   }
   listen() {
@@ -33,5 +39,4 @@ export default class Server {
       console.log('running on port: ', this.port);
     })
   }
-
 }
