@@ -12,7 +12,7 @@ export const usersGET = async( req = request, res = response ) => {
 
   // const total = await User.countDocuments({ state: true })
 
-  const [ total, users ] = await Promise.all([
+  const [ users, total ] = await Promise.all([
     User.find({ state: true })
       .skip( Number(from) )
       .limit( Number(limit) ),
