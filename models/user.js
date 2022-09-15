@@ -35,7 +35,8 @@ const userSchema = Schema({
 
 //? ESTE METODO PERMITE DEVOLVER LO QUE YO QUIERA DEL MODELO, AQUI SE DESCARTA EL PASSWORD Y VERSION
 userSchema.methods.toJSON = function() { 
-  const { __v, password, ...user } = this.toObject();
+  const { __v, password, _id, ...user } = this.toObject();
+  user.uid = _id
   return user;
 }
 

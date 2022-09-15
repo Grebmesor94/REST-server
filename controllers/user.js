@@ -63,8 +63,10 @@ export const usersDELETE = async(req = request, res = response) => {
   // const user = await User.findByIdAndDelete( id ) //? borrar fisicamente de la DB
 
   const user = await User.findByIdAndUpdate( id, { state: false} )
+  const authenticatedUser = req.user;
   
   res.json({
-    user
+    user,
+    authenticatedUser,
   })
 }

@@ -1,5 +1,11 @@
 import { Router } from "express";
 import { check } from "express-validator";
+
+import { validateEntries } from "../middlewares/validateEntries.js";
+import { validateJWT } from "../middlewares/validateJWT.js";
+import { validateAdminRole, validateRoles } from "../middlewares/validateRole.js";
+import { checkEmail, checkRole, checkUserById } from "../helpers/db-validators.js";
+
 import { 
   usersDELETE,
   usersGET,
@@ -7,8 +13,6 @@ import {
   usersPUT,
   usersPOST 
 } from "../controllers/user.js";
-import { validateEntries } from "../middlewares/validateEntries.js";
-import { checkEmail, checkRole, checkUserById } from "../helpers/db-validators.js";
 
 const router = Router()
 
@@ -26,6 +30,9 @@ router.post('/', [
 router.get('/', usersGET);
 
 router.delete('/:id', [
+  validateJWT,
+  validateAdminRole,
+  validateRoles('ADMIN_ROLE', 'USER_ROLE', 'VENTAS_ROLE'),
   check('id', 'ID is not valid').isMongoId(),
   check('id').custom( checkUserById ),
   validateEntries
@@ -37,7 +44,5 @@ router.put('/:id', [
   check('role').custom( checkRole ),
   validateEntries
 ], usersPUT)
-
-router.patch('/', usersPATCH)
 
 export default router;
