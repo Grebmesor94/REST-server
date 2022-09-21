@@ -6,16 +6,10 @@ import bcryptjs from 'bcryptjs'
 export const usersGET = async( req = request, res = response ) => { 
   const { limit = 5, from = 0 } = req.query; //? los query params vienen en string, se parsean a number
 
-  // const users = await User.find({ state: true })
-  //   .skip( Number(from) ) //? desde donde se va a leer la informacion
-  //   .limit( Number(limit) ) //? limite que vendra en la response
-
-  // const total = await User.countDocuments({ state: true })
-
   const [ users, total ] = await Promise.all([
     User.find({ state: true })
-      .skip( Number(from) )
-      .limit( Number(limit) ),
+      .skip( Number(from) ) //? desde donde se va a leer la informacion
+      .limit( Number(limit) ), //? limite que vendra en la response
     User.countDocuments({ state: true })
   ])
 
