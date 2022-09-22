@@ -1,3 +1,5 @@
+import { Category } from "../models/category.js"
+import { Product } from "../models/product.js"
 import Role from "../models/role.js"
 import User from "../models/user.js"
 
@@ -19,5 +21,20 @@ export const checkUserById = async( id = '' ) => {
   const validUser = await User.findById( id )
   if( !validUser ) { 
     throw new Error(`Id: ${ id } does not exist.`)
+  }
+}
+
+export const checkCategoryById = async( id ) => { 
+
+  const validCategory = await Category.findById({ id })
+  if( !validCategory ) { 
+    throw new Error(`Category with ID: ${ id } doesn't exist`)
+  }
+}
+
+export const checkProductById = async( id ) => { 
+  const validProduct = await Product.findById( id )
+  if( !validProduct ) { 
+    throw new Error(`Product with id: ${ id } does not exist`)
   }
 }

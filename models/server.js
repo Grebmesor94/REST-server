@@ -3,6 +3,8 @@ import cors from 'cors'
 import router from '../routes/user.js'
 import { dbConnection } from '../db/config.js'
 import { authRouter } from '../routes/auth.js'
+import { categoriesRouter } from '../routes/categories.js'
+import { productsRouter } from '../routes/products.js'
 
 export default class Server { 
 
@@ -11,6 +13,8 @@ export default class Server {
     this.port = process.env.PORT
     this.usersPath = '/api/users'
     this.authPath = '/api/auth'
+    this.categoriesPath = '/api/categories'
+    this.productsPath = '/api/products'
 
     //conectar DB
     this.connectDB();
@@ -34,8 +38,10 @@ export default class Server {
   }
 
   routes() { 
-    this.app.use(this.authPath, authRouter )
-    this.app.use(this.usersPath, router )
+    this.app.use( this.authPath, authRouter )
+    this.app.use( this.usersPath, router )
+    this.app.use( this.categoriesPath, categoriesRouter )
+    this.app.use( this.productsPath, productsRouter )
   }
   listen() {
     this.app.listen(this.port, () => { 
