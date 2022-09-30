@@ -1,5 +1,5 @@
 import { request, response } from "express";
-import { searchCategories, searchProducts, searchUsers } from "../helpers/search";
+import { searchCategories, searchProducts, searchUsers } from "../helpers/search.js";
 
 const allowedCollections = [
   'users',

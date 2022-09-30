@@ -38,3 +38,11 @@ export const checkProductById = async( id ) => {
     throw new Error(`Product with id: ${ id } does not exist`)
   }
 }
+
+export const allowedCollections = ( collection = '', collections = [] ) => { 
+
+  const included = collections.includes( collection )
+  if( !included ) throw new Error( `Collection ${ collection } is not allowed. ${ collections }`)
+
+  return true;
+}

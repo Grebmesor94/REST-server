@@ -6,6 +6,8 @@ import { authRouter } from '../routes/auth.js'
 import { categoriesRouter } from '../routes/categories.js'
 import { productsRouter } from '../routes/products.js'
 import { searchRouter } from '../routes/search.js'
+import { uploadsRouter } from '../routes/uploads.js'
+import fileUpload from 'express-fileupload'
 
 export default class Server { 
 
@@ -17,6 +19,7 @@ export default class Server {
     this.categoriesPath = '/api/categories'
     this.productsPath = '/api/products'
     this.searchPath = '/api/search'
+    this.uploadsPath = '/api/uploads'
 
     //conectar DB
     this.connectDB();
@@ -37,6 +40,12 @@ export default class Server {
     this.app.use( express.json() )
     //directorio publico 
     this.app.use( express.static('public') )
+    //file upload
+    this.app.use(fileUpload({
+      useTempFiles : true,
+      tempFileDir : '/tmp/',
+      createParentPath: true
+    }))
   }
 
   routes() { 
@@ -45,6 +54,7 @@ export default class Server {
     this.app.use( this.categoriesPath, categoriesRouter )
     this.app.use( this.productsPath, productsRouter )
     this.app.use( this.searchPath, searchRouter )
+    this.app.use( this.uploadsPath, uploadsRouter )
 
   }
   listen() {

@@ -1,9 +1,8 @@
 import { response } from "express"
 import { Types } from "mongoose"
-import { Product } from "../models/product"
-import { Category } from "../models/category"
-import User from "../models/user"
-import Role from "../models/role"
+import { Product } from "../models/product.js"
+import { Category } from "../models/category.js"
+import User from "../models/user.js"
 
 export const searchUsers = async( term = '', res = response ) => { 
   const isMongoID = Types.ObjectId.isValid( term )
