@@ -1,6 +1,6 @@
 import { model } from "mongoose";
-import { Product } from "../models/product";
-import User from "../models/user";
+import { Product } from "../models/product.js";
+import User from "../models/user.js";
 
 export const getModel = async( collection = '', id = '' ) => { 
 

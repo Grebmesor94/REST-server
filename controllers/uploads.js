@@ -1,9 +1,9 @@
 import { request, response } from "express";
-import { fileUploadHelper } from "../helpers/fileUpload";
+import { fileUploadHelper } from "../helpers/fileUpload.js";
 import path from 'path'
 import { fileURLToPath } from "url";
 import fs from 'fs'
-import { getModel } from "../helpers/getModel";
+import { getModel } from "../helpers/getModel.js";
 import { v2 as cloudinary } from 'cloudinary'
 
 cloudinary.config( process.env.CLOUDINARY_URL )
